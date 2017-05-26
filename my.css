@@ -1,0 +1,198 @@
+@font-face {
+    font-family: Font;
+    src: url("assets/OpenSans-Regular.ttf");
+} 
+ 
+body{
+	max-width: 800px;
+	font-family: Font, sans-serif;
+	margin: 0 auto;
+	
+}
+
+input[type='checkbox'] {
+    width:30px;
+    height:30px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+	display: block;
+	margin-left: 50%;
+	
+}
+
+
+.title{
+	margin: 0;
+    background-color: #34675C;
+    display: flex;
+    justify-content: center;
+    #font-family: "Fira Sans", sans-serif;
+    font-size: 36px;
+	font-weight: bold;
+	color: white;
+}
+
+.navigation ul{
+	margin-top: 2px;
+	margin-bottom: 1px;
+	list-style: none;
+    background-color: #86AC41;
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+}
+
+.navigation a:hover {
+    background: #7DA3A1;
+	
+}
+
+.navigation a {
+    text-decoration: none;
+	color: white;
+	display: block;
+    padding: 1em;
+}
+
+
+.content {
+    border: 2px solid black;
+}
+
+.content > * {
+    padding: 10px;    
+}
+
+main
+{
+	margin: auto;
+	width:100%;
+}
+
+.edit_data{
+	margin: 0 auto;
+	list-style: none;
+    #text-align: left;
+}
+
+.edit_data li{
+	border: 1px solid rgb(150,150,150);
+	border-radius: 5px;
+	padding-left: 5px;
+	text-align: justify;
+}
+
+.edit_data li:hover{
+	background-color: grey;
+}
+label
+{
+	
+	font-weight: bold;
+	
+}
+
+ 
+ input, select{
+	width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+	text-align: center;
+ }
+
+ 
+ button{
+		
+	display: inherit;
+	width: 100%;
+	padding: 10px;
+}
+
+.edit_button{
+	
+	cursor: pointer;
+	border: 1px solid rgb(150,150,150);
+	border-radius: 5px;
+	width: 49%;
+	display: inline;
+	padding: 0;
+	margin: 0 auto;
+	text-align: center;
+	background-color: white;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#columnchart{
+	height:500px;
+}
+
+#edit_selection{
+	display: flex;
+	flex-direction: row;
+    flex-wrap: wrap;
+	padding: 0;
+	margin: 0 auto;
+    #justify-content: space-around;  
+}
+
+#edit button{
+		
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#edit h4{
+		#padding:0px;
+		margin: 0 auto;
+		text-align: center;
+}
+
+input[type='radio'] {
+    display: none;
+	
+}
+
+.edit_button:hover {
+		background-color: #7DA3A1;
+}
+
+.edit_button:checked {
+		background-color: #7DA3A1;
+}
+
+@media all and (max-width: 600px) {
+    .navigation ul {
+        flex-direction: column;
+        flex-wrap: wrap;
+		text-align:center;
+        padding: 0;
+		#position: relative;
+		font-size: 20px;
+		#display:inline;
+		
+	}
+	
+	.navigation li a{
+		padding: 0;
+	}
+	
+	.navigation li{
+		border: 1px solid black;
+	}
+
+	.title{
+		font-size: 30px;
+	}
+	
+	.edit_button{
+		width:100%;
+	}
+	
+	#columnchart{
+		height:300px;
+}
+    
+}
