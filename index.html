@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -19,9 +19,9 @@
 			
 			<nav class="navigation">
 				<ul>
-						<li><a href="#" onclick=show_content("new")>Νέο έξοδο</a></li>
-						<li><a href="#" onclick=show_content("stats")>Διαγράμματα</a></li>
-						<li><a href="#" onclick=show_content("edit")>Επεξεργασία</a></li>    
+						<li id="nav_new"><a href="#" onclick=show_content("new")>Νέο έξοδο</a></li>
+						<li id="nav_stats"><a href="#" onclick=show_content("stats")>Διαγράμματα</a></li>
+						<li id="nav_edit"><a href="#" onclick=show_content("edit")>Επεξεργασία</a></li>    
 				</ul>
 			</nav>
 		</header>
@@ -32,7 +32,8 @@
 					<form id ="clientForm">
 						<fieldset>
 							<label>Ποσό:</label>
-							<input type="number" name="sammount"/>
+							<input type="number" name="sammount" min="0"/>
+							<br>
 							<br>
 							
 							<label>Κατηγορία:</label>
@@ -46,12 +47,14 @@
 									<option value="oth">Άλλο</option>
 								</select>
 							<br>
+							<br>
 							
 							<label>Αναγκαίο:</label>
 							
 								<input type="checkbox" name="nec" checked/>
 							
 								
+							<br>
 							<br>
 							
 							<button type="button" value="Submit" onclick="insertdata()">Υποβολή</button>
@@ -84,13 +87,15 @@
 				</div>
 				<br>	
           
-				
+				<!--
 				<h4>Αναγκαία έξοδα</h4>	
 				<ul class="edit_data" id="dynamic_ul_nec"></ul>
 				
 				<h4>Μη αναγκαία έξοδα</h4>	
 				<ul class="edit_data" id="dynamic_ul_notnec"></ul>
+				-->
 				
+				<h4>Όλες οι καταχωρήσεις</h4>	
 				<ul class="edit_data" id="dynamic_ul_all_data"></ul>
 
 		    <button type="reset" value="Reset" onclick="clear_all()">Αρχικοποίηση μετρητών</button>
