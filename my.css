@@ -13,7 +13,7 @@ body{
 input[type='checkbox'] {
     width:30px;
     height:30px;
-    background:white;
+    background-color:white;
     border-radius:5px;
     border:2px solid #555;
 	display: block;
@@ -34,6 +34,8 @@ input[type='checkbox'] {
 }
 
 .navigation ul{
+	
+	padding-left: 0px;
 	margin-top: 2px;
 	margin-bottom: 1px;
 	list-style: none;
@@ -41,20 +43,29 @@ input[type='checkbox'] {
     display: flex;
     justify-content: space-around;
     font-size: 18px;
+	text-align: center;
+	
+}
+
+.navigation ul li{
+	width:100%;
 }
 
 .navigation a:hover {
-    background: #7DA3A1;
+    background-color: #7DA3A1;
 	
+}
+
+.selected{
+	 background-color: #7DA3A1;
 }
 
 .navigation a {
     text-decoration: none;
 	color: white;
 	display: block;
-    padding: 1em;
+	padding: 1em;
 }
-
 
 .content {
     border: 2px solid black;
@@ -71,7 +82,8 @@ main
 }
 
 .edit_data{
-	margin: 0 auto;
+	#margin: 0 auto;
+	
 	list-style: none;
     #text-align: left;
 }
@@ -79,13 +91,23 @@ main
 .edit_data li{
 	border: 1px solid rgb(150,150,150);
 	border-radius: 5px;
+	padding: 5px;
 	padding-left: 5px;
 	text-align: justify;
+	
 }
 
 .edit_data li:hover{
 	background-color: grey;
 }
+
+.edit_data img{
+	float: right;
+	display: inline-block;
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
 label
 {
 	
@@ -181,6 +203,7 @@ input[type='radio'] {
 	
 	.navigation li{
 		border: 1px solid black;
+		padding: 3px;
 	}
 
 	.title{

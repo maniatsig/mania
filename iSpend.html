@@ -1,0 +1,107 @@
+﻿<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>i Spend</title>
+        <link rel="stylesheet" href="my.css">
+    </head>
+	
+	<script src="ispend.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	
+    <body onload=show_content("new")>
+		
+		<header>
+			<div class="title">i-Spend</div>
+			
+			<nav class="navigation">
+				<ul>
+						<li id="nav_new"><a href="#" onclick=show_content("new")>Νέο έξοδο</a></li>
+						<li id="nav_stats"><a href="#" onclick=show_content("stats")>Διαγράμματα</a></li>
+						<li id="nav_edit"><a href="#" onclick=show_content("edit")>Επεξεργασία</a></li>    
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<div class="content" id="new">
+				
+					
+					<form id ="clientForm">
+						<fieldset>
+							<label>Ποσό:</label>
+							<input type="number" name="sammount" min="0"/>
+							<br>
+							<br>
+							
+							<label>Κατηγορία:</label>
+								<select name="categ">
+									<option value="fd">Φαγητό/Ποτό</option>
+									<option value="sm">Supermarket</option>
+									<option value="car">Αυτοκίνητο</option>
+									<option value="fun">Διασκέδαση</option>
+									<option value="per">Προσωπικά</option>
+									<option value="voc">Διακοπές</option>
+									<option value="oth">Άλλο</option>
+								</select>
+							<br>
+							<br>
+							
+							<label>Αναγκαίο:</label>
+							
+								<input type="checkbox" name="nec" checked/>
+							
+								
+							<br>
+							<br>
+							
+							<button type="button" value="Submit" onclick="insertdata()">Υποβολή</button>
+							<br>
+							<button type="reset" value="Reset" onclick="clear_all()">Ακύρωση</button>
+									
+						</fieldset>			
+					</form>
+					
+					
+			
+		  
+			</div>
+			
+			<div class="content" id="stats">
+				
+					
+				<div id="columnchart"></div>
+
+		  
+
+			</div>
+			
+			<div class="content" id="edit">
+				<div id="edit_selection">
+					<input id="current" type="radio" name="history" checked/>
+					<input id="all" type="radio" name="history"/>
+					<label class= "edit_button" for="current">Πρόσφατα</label>
+					<label class= "edit_button" for="all">Όλα</label>
+				</div>
+				<br>	
+          
+				<!--
+				<h4>Αναγκαία έξοδα</h4>	
+				<ul class="edit_data" id="dynamic_ul_nec"></ul>
+				
+				<h4>Μη αναγκαία έξοδα</h4>	
+				<ul class="edit_data" id="dynamic_ul_notnec"></ul>
+				-->
+				
+				<h4>Όλες οι καταχωρήσεις</h4>	
+				<ul class="edit_data" id="dynamic_ul_all_data"></ul>
+
+		    <button type="reset" value="Reset" onclick="clear_all()">Αρχικοποίηση μετρητών</button>
+			<br>	
+			</div>
+		</main>
+	 		
+    </body>
+</html>
