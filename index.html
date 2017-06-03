@@ -33,33 +33,32 @@
 						<fieldset>
 							<label>Ποσό:</label>
 							<input type="number" name="sammount" min="0"/>
-							<br>
-							<br>
+							
 							
 							<label>Κατηγορία:</label>
 								<select name="categ">
-									<option value="fd">Φαγητό/Ποτό</option>
-									<option value="sm">Supermarket</option>
-									<option value="car">Αυτοκίνητο</option>
-									<option value="fun">Διασκέδαση</option>
-									<option value="per">Προσωπικά</option>
-									<option value="voc">Διακοπές</option>
-									<option value="oth">Άλλο</option>
+									<option value="Φαγητό/Ποτό">Φαγητό/Ποτό</option>
+									<option value="Supermarket">Supermarket</option>
+									<option value="Αυτοκίνητο">Αυτοκίνητο</option>
+									<option value="Διασκέδαση">Διασκέδαση</option>
+									<option value="Προσωπικά">Προσωπικά</option>
+									<option value="Διακοπές">Διακοπές</option>
+									<option value="Άλλο">Άλλο</option>
 								</select>
-							<br>
-							<br>
+							
 							
 							<label>Αναγκαίο:</label>
 							
 								<input type="checkbox" name="nec" checked/>
 							
 								
-							<br>
-							<br>
+							
 							
 							<button type="button" value="Submit" onclick="insertdata()">Υποβολή</button>
+							<!--
 							<br>
-							<button type="reset" value="Reset" onclick="clear_all()">Ακύρωση</button>
+							<button type="reset" value="Reset" onclick="clear_form()">Ακύρωση</button>
+							-->
 									
 						</fieldset>			
 					</form>
@@ -70,7 +69,7 @@
 			</div>
 			
 			<div class="content" id="stats">
-				
+				<h4> Ανάλυση εξόδων: </h4>
 					
 				<div id="columnchart"></div>
 
@@ -79,28 +78,24 @@
 			</div>
 			
 			<div class="content" id="edit">
-				<div id="edit_selection">
-					<input id="current" type="radio" name="history" checked/>
-					<input id="all" type="radio" name="history"/>
-					<label class= "edit_button" for="current">Πρόσφατα</label>
-					<label class= "edit_button" for="all">Όλα</label>
+				
+				<h4>Όλες οι καταχωρήσεις:</h4>	
+				<div id="scroll_list">
+					<ul class="edit_data" id="dynamic_ul_all_data"></ul>
 				</div>
-				<br>	
-          
-				<!--
-				<h4>Αναγκαία έξοδα</h4>	
-				<ul class="edit_data" id="dynamic_ul_nec"></ul>
-				
-				<h4>Μη αναγκαία έξοδα</h4>	
-				<ul class="edit_data" id="dynamic_ul_notnec"></ul>
-				-->
-				
-				<h4>Όλες οι καταχωρήσεις</h4>	
-				<ul class="edit_data" id="dynamic_ul_all_data"></ul>
-
+			
+			<br>
 		    <button type="reset" value="Reset" onclick="clear_all()">Αρχικοποίηση μετρητών</button>
-			<br>	
+			<br>
+					
 			</div>
+			<div id="message_box">
+				<h4>Επιβεβαίωση διαγραφής;</h4>
+				<div id="delete_record"></div>
+				<br>
+				<button id="delete_yes" >Ναι</button>
+				<button id="delete_no">Όχι</button>
+			</div>	
 		</main>
 	 		
     </body>
