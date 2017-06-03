@@ -1,3 +1,13 @@
+function hide(element){
+	
+					document.getElementById(element).style.display = "none";
+}
+
+function show(element){
+	
+					document.getElementById(element).style.display = "block";
+}
+
 function insertdata()
 				{
 			
@@ -76,20 +86,24 @@ function clear_form()
 function clear_all()
 				{
 					localStorage.clear();
+					show_content("new");
+					
 					
 				}				
 				
 function show_content(selection)
 				{
+					
 					set_counters();
+					hide("message_box");
 					if(selection=="new")
 					{
 						document.getElementById("nav_new").classList.add('selected');
 						document.getElementById("nav_stats").classList.remove('selected');
 						document.getElementById("nav_edit").classList.remove('selected');
-						document.getElementById("new").style.display = "block";
-						document.getElementById("stats").style.display = "none";
-						document.getElementById("edit").style.display = "none";
+						show("new");
+						hide("stats");
+						hide("edit");
 						
 						
 					}
@@ -98,10 +112,10 @@ function show_content(selection)
 						document.getElementById("nav_stats").classList.add('selected');
 						document.getElementById("nav_new").classList.remove('selected');
 						document.getElementById("nav_edit").classList.remove('selected');
-						document.getElementById("new").style.display = "none";
-						document.getElementById("stats").style.display = "block";
-						document.getElementById("edit").style.display = "none";
-						showstats();
+						hide("new");
+						show("stats");
+						hide("edit");
+						datastats();
 						
 					}
 					else
@@ -109,15 +123,17 @@ function show_content(selection)
 						document.getElementById("nav_edit").classList.add('selected');
 						document.getElementById("nav_new").classList.remove('selected');
 						document.getElementById("nav_stats").classList.remove('selected');
-						document.getElementById("new").style.display = "none";
-						document.getElementById("stats").style.display = "none";
-						document.getElementById("edit").style.display = "block";
-						showedit();
+						hide("new");
+						hide("stats");
+						show("edit");
+						dataedit();
 					}
+					
 				}
 
-function showstats()
+function datastats()
 				{
+					
 					google.charts.load("current", {packages:['corechart']});
 					google.charts.setOnLoadCallback(drawChart);
 					function drawChart() {
@@ -135,9 +151,12 @@ function showstats()
 					var view = new google.visualization.DataView(data);
 						
 					var options = {
-								title: "Ανάλυση εξόδων",
+							    colors: ['#34675C', '#8FBC8F'],
+								backgroundColor: '#E6FFF2',
 								bar: {groupWidth: "80%"},
-								legend: { position: "none" }
+								legend: { position: "top" },
+								vAxis: { viewWindow:{  min:0}}
+
 							   };
 							   
 					var chart = new google.visualization.ColumnChart(document.getElementById("columnchart"));
@@ -145,89 +164,41 @@ function showstats()
 					}
 						
 				}					
-function showedit()
+function dataedit()
 				{
+					
 					var all_data = "";
-					/*
-					var arr_nec = ["Φαγητό/Ποτό: " + window.localStorage.getItem("food_sumammount_nec") + "€",
-					"Supermarket: " + window.localStorage.getItem("super_sumammount_nec") + "€",
-					"Αυτοκίνητο: " + window.localStorage.getItem("car_sumammount_nec") + "€",
-					"Διασκέδαση: " + window.localStorage.getItem("ent_sumammount_nec") + "€",
-					"Προσωπικά: " + window.localStorage.getItem("pers_sumammount_nec") + "€",
-					"Διακοπές: " + window.localStorage.getItem("voc_sumammount_nec") + "€",
-					"Άλλο: " + window.localStorage.getItem("other_sumammount_nec") + "€"];
-					
-					var arr_notnec = ["Φαγητό/Ποτό: " + window.localStorage.getItem("food_sumammount_not_nec") + "€",
-					"Supermarket: " + window.localStorage.getItem("super_sumammount_not_nec") + "€",
-					"Αυτοκίνητο: " + window.localStorage.getItem("car_sumammount_not_nec") + "€",
-					"Διασκέδαση: " + window.localStorage.getItem("ent_sumammount_not_nec") + "€",
-					"Προσωπικά: " + window.localStorage.getItem("pers_sumammount_not_nec") + "€",
-					"Διακοπές: " + window.localStorage.getItem("voc_sumammount_not_nec") + "€",
-					"Άλλο: " + window.localStorage.getItem("other_sumammount_not_nec") + "€"];
-					
-					
-					//$("#edit").append("<ul></ul>");
-					var nec_list;
-					var notnec_list;
-					
 					var record;
-					for(var i in arr_nec)
-					{
+					var li_class;
 					
-						//var li = "<li>";
-						//$("#dynamic_ul_nec").append(li.concat(arr_nec[i]))
-						if(i>0)
-						{
-							nec_list = nec_list + "<li>"+arr_nec[i]+"</li>";
-						}
-						else
-						{
-							nec_list = "<li>"+arr_nec[i]+"</li>";
-						}
-					}
-						
-					document.getElementById("dynamic_ul_nec").innerHTML = nec_list;
-										 
-					for(var i in arr_notnec)
-					{
-						if(i>0)
-						{
-							notnec_list = notnec_list + "<li>"+arr_notnec[i]+"</li>";
-						}
-						else
-						{
-							notnec_list = "<li>"+arr_notnec[i]+"</li>";
-						}
-						//var li = "<li>";
-						//$("#dynamic_ul_notnec").append(li.concat(arr_notnec[i]))
-					}
+					hide("message_box");
 					
-					document.getElementById("dynamic_ul_notnec").innerHTML = notnec_list;
-					*/
-							
 									for (var i=window.localStorage.getItem('lastid'); i>0 ; i--) {
+										
+										record = JSON.parse(window.localStorage.getItem(i));
 										
 										if(window.localStorage.getItem(i) != null)
 										{
+											if(record.Necessary_selection)
+											{
+												li_class = "necessary_data_li";
+											}
+											else
+											{
+												li_class = "unnecessary_data_li";
+											}	
 											if(i == window.localStorage.getItem('lastid') )
 											{
-												all_data = "<li onclick=\"delete_data(" + i + ")\">" + window.localStorage.getItem(i) + "<img src=\"assets/close.svg\"</li>";
+												all_data = "<li class=\"li_class\" " + li_class + "\" onclick=\"delete_data(" + i + ")>" + record.Category_selection + " έξοδα: " + record.Ammount_selection + "€" + "<img src=\"assets/close.svg\"</li>";
 												
 											}
 											else
 											{
-												all_data = all_data + "<li onclick=\"delete_data(" + i + ")\">" + window.localStorage.getItem(i) + "<img src=\"assets/close.svg\"</li>";
+												all_data = all_data + "<li class=\" " + li_class + "\" onclick=\"delete_data(" + i + ")\">" + record.Category_selection + " έξοδα: " + record.Ammount_selection + "€" + "<img src=\"assets/close.svg\"</li>";
 											}
 									
-											//console.log(window.localStorage.getItem('lastid'));
-											//var li = "<li>";
-											//$("#dynamic_ul_all_data").append(li.concat(window.localStorage.getItem(i)));
-											record = JSON.parse(window.localStorage.getItem(i));
-											//for (var prop in record) {
-												//console.log('  ' + prop + ': ' + record[prop]);
-											//}
-											//console.log(window.localStorage.getItem(i));
-											console.log(record.Category_selection);
+											
+											
 										}
 									}
 									document.getElementById("dynamic_ul_all_data").innerHTML = all_data;
@@ -237,146 +208,166 @@ function showedit()
 				}	
 				
 function delete_data(record_id)
-				{	
-				edit_counters(record_id, "remove");
-				localStorage.removeItem(record_id);
-				showedit();
-				}
+{
+					var record = JSON.parse(window.localStorage.getItem(record_id));
+					show("message_box");
+					hide("edit");
+					document.getElementById("delete_record").innerHTML = record.Category_selection + " έξοδα: " + record.Ammount_selection + "€";
+					
+					document.getElementById("delete_yes").addEventListener("click", function(){
+										
+										show("edit");
+										edit_counters(record_id, "remove");
+										localStorage.removeItem(record_id);
+										dataedit();
+										
+									});
+					document.getElementById("delete_no").addEventListener("click", function(){
+										
+									show("edit");
+									dataedit();
+									
+									});
+									
+									
+}
 				
 function edit_counters(record_id, symbol)
 {
-	var record = JSON.parse(window.localStorage.getItem(record_id));
-	if(symbol == "add")
-	{
-			if(record.Necessary_selection)
-								{
-									if(record.Category_selection == "fd")
-									{
-										localStorage.setItem("food_sumammount_nec", parseInt(window.localStorage.getItem("food_sumammount_nec"))+parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "sm")
-									{
-										localStorage.setItem("super_sumammount_nec", parseInt(window.localStorage.getItem("super_sumammount_nec"))+parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "car")
-									{
-										localStorage.setItem("car_sumammount_nec", parseInt(window.localStorage.getItem("car_sumammount_nec"))+parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "fun")
-									{
-										localStorage.setItem("ent_sumammount_nec", parseInt(window.localStorage.getItem("ent_sumammount_nec"))+parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "per")
-									{
-										localStorage.setItem("pers_sumammount_nec", parseInt(window.localStorage.getItem("pers_sumammount_nec"))+parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "voc")
-									{
-										localStorage.setItem("voc_sumammount_nec", parseInt(window.localStorage.getItem("voc_sumammount_nec"))+parseInt(record.Ammount_selection));
-									}
-									else
-									{
-										localStorage.setItem("other_sumammount_nec", parseInt(window.localStorage.getItem("other_sumammount_nec"))+parseInt(record.Ammount_selection));
-									}
-								}
-								else
-								{
-									if(record.Category_selection == "fd")
-									{
-										localStorage.setItem("food_sumammount_not_nec", parseInt(window.localStorage.getItem("food_sumammount_not_nec"))+parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "sm")
-									{
-										localStorage.setItem("super_sumammount_not_nec", parseInt(window.localStorage.getItem("super_sumammount_not_nec"))+parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "car")
-									{
-										localStorage.setItem("car_sumammount_not_nec", parseInt(window.localStorage.getItem("car_sumammount_not_nec"))+parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "fun")
-									{
-										localStorage.setItem("ent_sumammount_not_nec", parseInt(window.localStorage.getItem("ent_sumammount_not_nec"))+parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "per")
-									{
-										localStorage.setItem("pers_sumammount_not_nec", parseInt(window.localStorage.getItem("pers_sumammount_not_nec"))+parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "voc")
-									{
-										localStorage.setItem("voc_sumammount_not_nec", parseInt(window.localStorage.getItem("voc_sumammount_not_nec"))+parseInt(record.Ammount_selection));
-									}
-									else
-									{
-										localStorage.setItem("other_sumammount_not_nec", parseInt(window.localStorage.getItem("other_sumammount_not_nec"))+parseInt(record.Ammount_selection));
-									}
-								}
-	}
+					var record = JSON.parse(window.localStorage.getItem(record_id));
+					if(symbol == "add")
+					{
+										if(record.Necessary_selection)
+										{
+												if(record.Category_selection == "Φαγητό/Ποτό")
+												{
+													localStorage.setItem("food_sumammount_nec", parseInt(window.localStorage.getItem("food_sumammount_nec"))+parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Supermarket")
+												{
+													localStorage.setItem("super_sumammount_nec", parseInt(window.localStorage.getItem("super_sumammount_nec"))+parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Αυτοκίνητο")
+												{
+													localStorage.setItem("car_sumammount_nec", parseInt(window.localStorage.getItem("car_sumammount_nec"))+parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Διασκέδαση")
+												{
+													localStorage.setItem("ent_sumammount_nec", parseInt(window.localStorage.getItem("ent_sumammount_nec"))+parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Προσωπικά")
+												{
+													localStorage.setItem("pers_sumammount_nec", parseInt(window.localStorage.getItem("pers_sumammount_nec"))+parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Διακοπές")
+												{
+													localStorage.setItem("voc_sumammount_nec", parseInt(window.localStorage.getItem("voc_sumammount_nec"))+parseInt(record.Ammount_selection));
+												}
+												else
+												{
+													localStorage.setItem("other_sumammount_nec", parseInt(window.localStorage.getItem("other_sumammount_nec"))+parseInt(record.Ammount_selection));
+												}
+										}
+										else
+										{
+												if(record.Category_selection == "Φαγητό/Ποτό")
+												{
+													localStorage.setItem("food_sumammount_not_nec", parseInt(window.localStorage.getItem("food_sumammount_not_nec"))+parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Supermarket")
+												{
+													localStorage.setItem("super_sumammount_not_nec", parseInt(window.localStorage.getItem("super_sumammount_not_nec"))+parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Αυτοκίνητο")
+												{
+													localStorage.setItem("car_sumammount_not_nec", parseInt(window.localStorage.getItem("car_sumammount_not_nec"))+parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Διασκέδαση")
+												{
+													localStorage.setItem("ent_sumammount_not_nec", parseInt(window.localStorage.getItem("ent_sumammount_not_nec"))+parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Προσωπικά")
+												{
+													localStorage.setItem("pers_sumammount_not_nec", parseInt(window.localStorage.getItem("pers_sumammount_not_nec"))+parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Διακοπές")
+												{
+													localStorage.setItem("voc_sumammount_not_nec", parseInt(window.localStorage.getItem("voc_sumammount_not_nec"))+parseInt(record.Ammount_selection));
+												}
+												else
+												{
+													localStorage.setItem("other_sumammount_not_nec", parseInt(window.localStorage.getItem("other_sumammount_not_nec"))+parseInt(record.Ammount_selection));
+												}
+										}
+					}
 	
-	else
-	{
+					else
+					{
 		
-				
-								if(record.Necessary_selection)
-								{
-									if(record.Category_selection == "fd")
-									{
-										localStorage.setItem("food_sumammount_nec", parseInt(window.localStorage.getItem("food_sumammount_nec"))-parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "sm")
-									{
-										localStorage.setItem("super_sumammount_nec", parseInt(window.localStorage.getItem("super_sumammount_nec"))-parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "car")
-									{
-										localStorage.setItem("car_sumammount_nec", parseInt(window.localStorage.getItem("car_sumammount_nec"))-parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "fun")
-									{
-										localStorage.setItem("ent_sumammount_nec", parseInt(window.localStorage.getItem("ent_sumammount_nec"))-parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "per")
-									{
-										localStorage.setItem("pers_sumammount_nec", parseInt(window.localStorage.getItem("pers_sumammount_nec"))-parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "voc")
-									{
-										localStorage.setItem("voc_sumammount_nec", parseInt(window.localStorage.getItem("voc_sumammount_nec"))-parseInt(record.Ammount_selection));
-									}
-									else
-									{
-										localStorage.setItem("other_sumammount_nec", parseInt(window.localStorage.getItem("other_sumammount_nec"))-parseInt(record.Ammount_selection));
-									}
-								}
-								else
-								{
-									if(record.Category_selection == "fd")
-									{
-										localStorage.setItem("food_sumammount_not_nec", parseInt(window.localStorage.getItem("food_sumammount_not_nec"))-parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "sm")
-									{
-										localStorage.setItem("super_sumammount_not_nec", parseInt(window.localStorage.getItem("super_sumammount_not_nec"))-parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "car")
-									{
-										localStorage.setItem("car_sumammount_not_nec", parseInt(window.localStorage.getItem("car_sumammount_not_nec"))-parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "fun")
-									{
-										localStorage.setItem("ent_sumammount_not_nec", parseInt(window.localStorage.getItem("ent_sumammount_not_nec"))-parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "per")
-									{
-										localStorage.setItem("pers_sumammount_not_nec", parseInt(window.localStorage.getItem("pers_sumammount_not_nec"))-parseInt(record.Ammount_selection));
-									}
-									else if(record.Category_selection == "voc")
-									{
-										localStorage.setItem("voc_sumammount_not_nec", parseInt(window.localStorage.getItem("voc_sumammount_not_nec"))-parseInt(record.Ammount_selection));
-									}
-									else
-									{
-										localStorage.setItem("other_sumammount_not_nec", parseInt(window.localStorage.getItem("other_sumammount_not_nec"))-parseInt(record.Ammount_selection));
-									}
-								}
-	}
+				console.log(record);
+										if(record.Necessary_selection)
+										{ 
+												if(record.Category_selection == "Φαγητό/Ποτό")
+												{
+													localStorage.setItem("food_sumammount_nec", parseInt(window.localStorage.getItem("food_sumammount_nec"))-parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Supermarket")
+												{
+													localStorage.setItem("super_sumammount_nec", parseInt(window.localStorage.getItem("super_sumammount_nec"))-parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Αυτοκίνητο")
+												{
+													localStorage.setItem("car_sumammount_nec", parseInt(window.localStorage.getItem("car_sumammount_nec"))-parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Διασκέδαση")
+												{
+													localStorage.setItem("ent_sumammount_nec", parseInt(window.localStorage.getItem("ent_sumammount_nec"))-parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Προσωπικά")
+												{
+													localStorage.setItem("pers_sumammount_nec", parseInt(window.localStorage.getItem("pers_sumammount_nec"))-parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Διακοπές")
+												{
+													localStorage.setItem("voc_sumammount_nec", parseInt(window.localStorage.getItem("voc_sumammount_nec"))-parseInt(record.Ammount_selection));
+												}
+												else
+												{
+													localStorage.setItem("other_sumammount_nec", parseInt(window.localStorage.getItem("other_sumammount_nec"))-parseInt(record.Ammount_selection));
+												}
+										}
+										else
+										{
+												if(record.Category_selection == "Φαγητό/Ποτό")
+												{
+													localStorage.setItem("food_sumammount_not_nec", parseInt(window.localStorage.getItem("food_sumammount_not_nec"))-parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Supermarket")
+												{
+													localStorage.setItem("super_sumammount_not_nec", parseInt(window.localStorage.getItem("super_sumammount_not_nec"))-parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Αυτοκίνητο")
+												{
+													localStorage.setItem("car_sumammount_not_nec", parseInt(window.localStorage.getItem("car_sumammount_not_nec"))-parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Διασκέδαση")
+												{
+													localStorage.setItem("ent_sumammount_not_nec", parseInt(window.localStorage.getItem("ent_sumammount_not_nec"))-parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Προσωπικά")
+												{
+													localStorage.setItem("pers_sumammount_not_nec", parseInt(window.localStorage.getItem("pers_sumammount_not_nec"))-parseInt(record.Ammount_selection));
+												}
+												else if(record.Category_selection == "Διακοπές")
+												{
+													localStorage.setItem("voc_sumammount_not_nec", parseInt(window.localStorage.getItem("voc_sumammount_not_nec"))-parseInt(record.Ammount_selection));
+												}
+												else
+												{
+													localStorage.setItem("other_sumammount_not_nec", parseInt(window.localStorage.getItem("other_sumammount_not_nec"))-parseInt(record.Ammount_selection));
+												}
+										}
+										
+										
+					}
 }
